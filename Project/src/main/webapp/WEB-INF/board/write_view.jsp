@@ -59,6 +59,8 @@ body {
  background: #ABBEBE;
  margin: 0px 0px 10px 0px;
  padding: 10px;
+ position : fixed;
+ bottom : 0;
 }
 .clear { clear: both; background: none; }
 
@@ -90,7 +92,7 @@ body {
     <!-- Begin Right Column -->
     <div id="rightcolumn">
       <h1>게시판 글 쓰기</h1>
-      <form name="writeform" >
+      <form name="writeform" action="write.do" method="post" >
       <table border="0" style="margin: 8px 0; width: 500; cellpadding="0" cellspacing="0">
       <tr>
       <td>작성자:</td>
@@ -98,7 +100,7 @@ body {
       </tr>
       <tr>
       <td>비밀번호:</td>
-      <td><input type="password" name="pass" size="10"/></td>
+      <td><input type="password" name="passwd" size="10"/></td>
       </tr>
        <tr>
       <td>글 제목:</td>
@@ -116,7 +118,7 @@ body {
       </tr>
       <tr>
       <td colspan="10">
-      <button type="button" onclick="checkform();">작성완료</button>
+      <button type="button" onclick="check();">작성완료</button>
       </td>
       </tr>
       
@@ -148,15 +150,18 @@ body {
 <!-- End Wrapper -->
 <script>
 
-function checkform() {
-	alert('aaa'); 
+function check() {
 	var form = document.writeform;
-	if(form.name.value ==""){
-		alert("이름을 입력하세요");
-		form.name.focus();
-		return.false;
+	if(form.id.value==""){
+		alert("아이디를 입력하세요");
+		form.id.focus();
+		return false;
+	}else if(form.passwd.value==""){
+		alert("입력한 값을 확인 하세요");
+		form.passwd.focus();
+		return false;
 	}
-	
+	form.submit();
 }
 
 
