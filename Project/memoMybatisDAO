@@ -1,0 +1,130 @@
+package project.memoMybatis.model.dao;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.ibatis.session.SqlSession;
+
+
+import project._mybatisConfig.MybatisManager;
+import project.memoMybatis.model.dto.memoMybatisDTO;
+
+public class memoMybatisDAO {
+	//crud
+	String tablename01 = "memo";
+	
+	public int getTotalRecord(memoMybatisDTO paramdto) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("dto", paramdto);
+		map.put("tablename01", tablename01);
+		
+		SqlSession session = MybatisManager.getInstance().openSession();
+		int result = session.selectOne("memoMybatis.getTotalRecord", map);//어느 매퍼파일을 쓸꺼냐
+		session.close();
+		
+		
+		return result;
+	}
+	
+	
+	
+	
+		public List<memoMybatisDTO> getselectAll(memoMybatisDTO paramdto) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("paramdto", paramdto);
+			map.put("tablename01", tablename01);
+			SqlSession session = MybatisManager.getInstance().openSession();
+			List<memoMybatisDTO> list = session.selectOne("memoMybatis.getselectAll", map);
+			
+			session.close();
+			
+			return list;
+			}
+			
+		public memoMybatisDTO getselectOne(memoMybatisDTO paramdto) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("paramdto", paramdto);
+			map.put("tablename01", tablename01);
+			SqlSession session = MybatisManager.getInstance().openSession();
+			memoMybatisDTO dto = session.selectOne("memoMybatis.getselectOne", map);
+			
+			session.close();
+			
+			
+			
+			return dto;
+		}
+		
+		public int setInsert(memoMybatisDTO paramdto) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("dto", paramdto);
+			//map.get(paramdto);
+			map.put("tablename01", tablename01);
+			//map.put("searchGubun", searchGubun);
+			
+			SqlSession session = MybatisManager.getInstance().openSession();
+			//int result = session.insert("네임스페이스.태그아이디", "물고갈값");
+			int result = session.insert("memoMybatis.setInsert", map);//어느 매퍼파일을 쓸꺼냐
+			System.out.println(result);
+			session.commit();
+			session.close();
+			
+			
+			
+			
+			
+			return result;
+		}
+		
+		public int setDelect(memoMybatisDTO paramdto) {
+			
+			Map<String, Object> map = new HashMap<>();
+			map.put("dto", paramdto);
+			//map.get(paramdto);
+			map.put("tablename01", tablename01);
+			//map.put("searchGubun", searchGubun);
+			
+			SqlSession session = MybatisManager.getInstance().openSession();
+			//int result = session.insert("네임스페이스.태그아이디", "물고갈값");
+			int result = session.insert("memoMybatis.setDelect", map);//어느 매퍼파일을 쓸꺼냐
+			System.out.println(result);
+			session.commit();
+			session.close();
+			
+			
+			//컨트롤러는 dao 
+			//dao 는 맵퍼로감
+			
+			
+			
+			return result;
+		}
+		
+		public int setUpdate(memoMybatisDTO paramdto) {
+			Map<String, Object> map = new HashMap<>();
+			map.put("dto", paramdto);
+			//map.get(paramdto);
+			map.put("tablename01", tablename01);
+			//map.put("searchGubun", searchGubun);
+			
+			SqlSession session = MybatisManager.getInstance().openSession();
+			//int result = session.insert("네임스페이스.태그아이디", "물고갈값");
+			int result = session.update("memoMybatis.setUpdate", map);//어느 매퍼파일을 쓸꺼냐
+			System.out.println(result);
+			session.commit();
+			session.close();
+			
+			
+			
+			
+			
+			return result;
+		}
+		
+
+
+
+
+}

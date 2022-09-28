@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memoMybatis">
+
+<sql id="search">
+<choose>
+	
+	<when test="dto.seachGubun==writer_content">
+		and (writer like '%' || #{dto.searchData} || '%' or content like '%' || #{dto.searchData} || '%')
+	</when>
+	
+	<when test="dto.seachGubun!= null and dto.seachGubun!= '' and dto.seachGubun!=null and dto.seachDate !='' ">
+		and (${dto.seachGubun} like '%' || #{dto.seachData} || '%')
+	</when>
+	
+	<otherwise>
+	
+	</otherwise>
+	</choose>
+
+</sql>
+
+
+<insert id="setInsert">
+insert into ${tablename01} (no, writer,content,regidate) 
+values (seq_meno.nextval, #{dto.writer}, #{dto.content}, sysdate)
+
+</insert>
+
+<select id="getTotalRecord" resultType="int">
+select count(*) from ${tablename01} where 1 = 1
+
+<include refid="search"></include>
+
+
+
+</select>
+
+<select id="getselectAll" resultType="project.memoMybatis.model.dto.memoMybatisDTO"><!-- //반환형은 하나하나의 타입 -->
+<!-- 임폴트 하는 경로  -->
+	select * from (select A.*, Rownum rnum for(
+		select * from ${tableName01} where 1 = 1
+			<include refid="search"></include>
+	
+	<!--CDATA 안에 들어가는 문장을 문자열로 인식하게 합니다.-->
+	<![CDATA[
+	
+		order by no desc	
+	
+	)A) where rnum>=#{dto.startRecord} and rnum <= #{dto.lastRecord}<!-- 필드명을 제외하고 값은 무조건 #이라고 생각하기 -->
+
+]]>
+
+</select>
+
+<select id="getselectOne" resultType="project.memoMybatis.model.dto.memoMybatisDTO">
+
+	select * from ${tableName01} where no = #{dto.no}
+
+
+
+</select>
+
+
+<update id="setUpdate">
+	update ${tableName01} set writer = #{dto.writer}, content = #{dto.content} where no = #{dto.no}
+	
+
+
+</update>
+
+<delete id="setDelect">
+
+	delete from ${tableName01} where no = #{dto.no}
+
+</delete>
+
+
+</mapper>
+
+<!-- #{writer} 'writer'<-작은따옴표 값을 적을때 $는 작은따옴표 붙이지마라-->
+<!-- map.put 이런식으로 꺼낼필요가 없고 그냥 맵에 dto가 담겨있으니까 그냥 dto안에 있는거를 불러오면됨 -->
