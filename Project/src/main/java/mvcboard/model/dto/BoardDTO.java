@@ -10,7 +10,7 @@ public class BoardDTO {
 	private String	ofile;//원본파일
 	private String	sfile ;//저장된 파일명
 	private int	downcount;//다운로드 횟수
-	private String	pass;//비밀번호
+	private String	passwd;//비밀번호
 	private int	visitcount;
 	
 	
@@ -63,10 +63,10 @@ public class BoardDTO {
 		this.downcount = downcount;
 	}
 	public String getPass() {
-		return pass;
+		return passwd;
 	}
-	public void setPass(String pass) {
-		this.pass = pass;
+	public void setPass(String passwd) {
+		this.passwd = passwd;
 	}
 	public int getVisitcount() {
 		return visitcount;
@@ -77,23 +77,10 @@ public class BoardDTO {
 	@Override
 	public String toString() {
 		return "BoardDTO [idx=" + idx + ", name=" + name + ", title=" + title + ", content=" + content + ", postdate="
-				+ postdate + ", ofile=" + ofile + ", sfile=" + sfile + ", downcount=" + downcount + ", pass=" + pass
+				+ postdate + ", ofile=" + ofile + ", sfile=" + sfile + ", downcount=" + downcount + ", passwd=" + passwd
 				+ ", visitcount=" + visitcount + "]";
 	}
-	public BoardDTO(int idx, String name, String title, String content, String postdate, String ofile, String sfile,
-			int downcount, String pass, int visitcount) {
-		super();
-		this.idx = idx;
-		this.name = name;
-		this.title = title;
-		this.content = content;
-		this.postdate = postdate;
-		this.ofile = ofile;
-		this.sfile = sfile;
-		this.downcount = downcount;
-		this.pass = pass;
-		this.visitcount = visitcount;
-	}
+	
 	
 	
 
